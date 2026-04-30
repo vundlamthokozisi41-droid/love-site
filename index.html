@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Motheo ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Quicksand&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: radial-gradient(circle, #fff0f5, #ffe6eb);
+    overflow: hidden;
+}
+
+/* Slides */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: #d6336c;
+    max-width: 600px;
+}
+
+/* Buttons */
+button {
+    padding: 12px 25px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* No button */
+#noBtn {
+    position: absolute;
+    background: #ccc;
+}
+
+/* Romantic image */
+.romance {
+    width: 150px;
+    margin-bottom: 15px;
+}
+
+/* Hearts */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Certificate */
+#certificate {
+    background: #fff0f5;
+    padding: 40px;
+    border: 8px double #ffccd5;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Slide 1 -->
+<div class="slide active" id="s1">
+    <h1>Hi Motheo ❤️</h1>
+    <button onclick="next(2)">Hi 😊</button>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide" id="s2">
+    <img class="romance" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+    <h2>
+        We've been through so much together...<br><br>
+        And somehow, through everything... I still choose you.<br><br>
+        From the very beginning, there was something about you I couldn't ignore.<br><br>
+        I love you... and I want us to do this for real this time.<br><br>
+        I want forever... with you.
+    </h2>
+    <button onclick="next(3)">Continue ❤️</button>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide" id="s3">
+    <h2>Play this first 🎤</h2>
+    <audio controls>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="next(4)">Continue</button>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide" id="s4">
+    <h1>Will you be my girlfriend again? ❤️</h1>
+    <button onclick="yes()">Yes 😍</button>
+    <button id="noBtn">No 😢</button>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide" id="s5">
+    <div id="certificate">
+        <h2>💖 Official Relationship Certificate 💖</h2>
+        <p>This certifies that</p>
+        <h2>Mthokozisi ❤️ Motheo Kgomo</h2>
+        <p>are officially together 💍</p>
+        <p id="date"></p>
+    </div>
+    <button onclick="download()">Download 💌</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+// slide transition
+function next(n){
+    document.querySelectorAll(".slide").forEach(s => s.classList.remove("active"));
+    document.getElementById("s"+n).classList.add("active");
+}
+
+// no button runs away
+const noBtn = document.getElementById("noBtn");
+noBtn.onmouseover = noBtn.onclick = () => {
+    noBtn.style.left = Math.random()*window.innerWidth + "px";
+    noBtn.style.top = Math.random()*window.innerHeight + "px";
+};
+
+// yes clicked
+function yes(){
+    next(5);
+    hearts();
+}
+
+// date
+document.getElementById("date").innerText = new Date().toDateString();
+
+// download
+function download(){
+    html2canvas(document.getElementById("certificate")).then(canvas=>{
+        let a = document.createElement("a");
+        a.href = canvas.toDataURL();
+        a.download = "certificate.png";
+        a.click();
+    });
+}
+
+// floating hearts
+function hearts(){
+    setInterval(()=>{
+        let h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = "❤️";
+        h.style.left = Math.random()*100 + "vw";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    },300);
+}
+</script>
+
+</body>
+</html>
